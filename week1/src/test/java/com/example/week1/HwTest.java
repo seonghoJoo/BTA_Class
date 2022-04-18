@@ -6,6 +6,8 @@ import org.junit.Test;
 import org.junit.jupiter.api.DisplayName;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
+import reactor.core.scheduler.Scheduler;
+import reactor.core.scheduler.Schedulers;
 import reactor.test.StepVerifier;
 import reactor.util.function.Tuple2;
 
@@ -17,14 +19,17 @@ public class HwTest {
     @DisplayName("1. [Blenders, Old, Johnnie] 와 [Pride, Monk,b Walker]를 순서대로 하나의 스트림으로 처리하는")
     @Test
     public void testMakeOneStream(){
+        // 순서보장하기 위해 delayElements
         Flux<String> flux1 = Flux.just("Blenders", "Old", "Johnnie")
                 .delayElements(Duration.ofSeconds(1));
         Flux<String> flux2 = Flux.just("Pride", "Monk", "Walker")
                 .delayElements(Duration.ofSeconds(1));
 
+        // [flux1, flux2] 로 합침
         Flux<String> result = Flux.concat(flux1,flux2).log();
 
         StepVerifier.create(result)
+                // onSubscribe 찍히는지 검증
                 .expectSubscription()
                 .expectNext("Blenders","Old", "Johnnie", "Pride", "Monk", "Walker")
                 .verifyComplete();
@@ -35,17 +40,22 @@ public class HwTest {
     @DisplayName("2. 1~100 까지의 자연수 중 짝수만 출력하는 로직 검증")
     @Test
     public void testEvenNumber(){
+        // Integer List 1~100까지 생성
         List<Integer> intList = new ArrayList<>();
         for (int i=1; i<=100; i++) {
             intList.add(i);
         }
 
+        // list를 만들고, filter 짝수만 걸리도록 적용
         Flux<Integer> result = Flux.fromIterable(intList)
                                 .filter(x -> x%2==0)
                                 .log();
 
         StepVerifier.create(result)
                 .expectSubscription()
+                // 100 / 2 = 50 개
+                .expectNextCount(50)
+                // filter를 못미더워서 한번더 안전장치 만든 것
                 .thenConsumeWhile(i->i%2==0)
                 .verifyComplete();
 
@@ -117,9 +127,21 @@ public class HwTest {
             "\n [GOOGLE, STACKOVERFLOW, GOOGLE, STACKOVERFLOW]" )
     @Test
     public void test5CharacterTobeUpperCase(){
+
+        // 처음에 비동기 모르고 짰었던 코드
         Flux<String> result = Flux.just("google", "abc", "fb", "stackoverflow")
                 .filter(x-> x.length() >= 5)
                 .map(x-> x.toUpperCase())
+                .subscribeOn(Schedulers.boundedElastic())
+                .repeat(1)
+                .log();
+
+        // 비동기 인식하고 나서 짜게 된 코드
+        Flux<String> result2 = Flux.just("google", "abc", "fb", "stackoverflow")
+                .filter(x-> x.length() >= 5)
+                // 스레드
+                .flatMap(x-> Flux.just(x.toUpperCase()))
+                .subscribeOn(Schedulers.boundedElastic())
                 .repeat(1)
                 .log();
 
