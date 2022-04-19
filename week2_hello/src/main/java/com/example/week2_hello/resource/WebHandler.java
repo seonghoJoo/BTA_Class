@@ -16,14 +16,22 @@ public class WebHandler {
 
     //Router Function 모델
 
-    public Mono<ServerResponse> hello(ServerRequest request, String name) {
-        Mono<Person> person = Mono.just(new Person(name));
-        return ServerResponse.ok().body(BodyInserters.fromValue(response));
+    public Mono<ServerResponse> hello(ServerRequest request) {
+        Mono<PersonResponseDto> person = request.getQueryParam("name")
+            .flatMap(name -> new PersonResponseDto(name,name));
+        
+        //Mono<Person> person = Mono.just(new Person(name));
+        return ServerResponse.ok().body(BodyInserters.fromValue(person));
     }
 
     @Getter
-    @AllArgsConstructor
-    public class Person{
+    public class PersonResponseDto{
+        private String msg;
         private String name;
+        
+        public PersonResponseDto(String msg, String name){
+            this.msg = msg;
+            this.name = "hello " + name;
+        }
     }
 }
