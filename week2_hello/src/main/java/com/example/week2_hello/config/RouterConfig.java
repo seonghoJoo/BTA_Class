@@ -14,6 +14,13 @@ import static org.springframework.web.reactive.function.server.RouterFunctions.r
 @Configuration
 public class RouterConfig {
 
+    //Router Function 모델
+    
+    @Bean
+	public RouterFunction<ServerResponse> routes(WebHandler handler) {
+		return RouterFunctions.route(RequestPredicates.GET("/hello").and(accpet(MediaType.APPLICATION_JSON)), handler::hello);
+	}
+    
     @Bean
     public RouterFunction<ServerResponse> routerExample(WebHandler handler) {
         return RouterFunctions.route()
