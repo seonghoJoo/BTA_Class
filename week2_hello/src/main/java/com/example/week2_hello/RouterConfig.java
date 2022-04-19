@@ -1,6 +1,7 @@
 package com.example.week2_hello;
 
-import com.example.week2_hello.resource.MyWebHandler;
+import com.example.week2_hello.resource.v1.V1WebHandler;
+import com.example.week2_hello.resource.v2.V2WebHandler;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.reactive.function.server.RouterFunction;
@@ -16,9 +17,11 @@ public class RouterConfig {
 
     //Router Function 모델
     @Bean
-    public RouterFunction<ServerResponse> routerExample(MyWebHandler handler) {
+    public RouterFunction<ServerResponse> routerExample(V2WebHandler handler) {
         return RouterFunctions.route()
                 .GET("/hello", accept(APPLICATION_JSON), handler::hello)
                 .build();
     }
+
+
 }
