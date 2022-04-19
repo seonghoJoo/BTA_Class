@@ -9,6 +9,7 @@ import org.springframework.web.reactive.function.server.RouterFunction;
 import org.springframework.web.reactive.function.server.ServerRequest;
 import org.springframework.web.reactive.function.server.ServerResponse;
 import reactor.core.publisher.Mono;
+import reactor.core.scheduler.Schedulers;
 
 import static org.springframework.http.MediaType.APPLICATION_JSON;
 import static org.springframework.web.reactive.function.server.RequestPredicates.*;
@@ -21,10 +22,14 @@ public class MyWebHandler {
 
     public Mono<ServerResponse> hello(ServerRequest request) {
         String name = request.queryParam("name").get();
-        PersonResponseDto p = new PersonResponseDto(name,name);
-        p.modMessage(name);
 
-        return ServerResponse.ok().contentType(MediaType.APPLICATION_JSON).bodyValue(p);
+        return ServerResponse.ok().contentType(MediaType.APPLICATION_JSON)
+                .body(
+                Mono.just(new PersonResponseDto(name,name))
+                .map(person -> {
+                    person.modMessage(name);
+                    return person;
+                }), PersonResponseDto.class);
     }
 
     @Getter
