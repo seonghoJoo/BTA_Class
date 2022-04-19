@@ -14,7 +14,7 @@ import static org.springframework.web.reactive.function.server.RouterFunctions.r
 
 public class WebHandler {
 
-
+    //Router Function 모델
 
     public Mono<ServerResponse> hello(ServerRequest request, String name) {
         Mono<Person> person = Mono.just(new Person(name));
