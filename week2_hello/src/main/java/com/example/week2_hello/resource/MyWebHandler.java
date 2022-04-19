@@ -2,6 +2,8 @@ package com.example.week2_hello.resource;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import org.springframework.http.MediaType;
+import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.BodyInserters;
 import org.springframework.web.reactive.function.server.RouterFunction;
 import org.springframework.web.reactive.function.server.ServerRequest;
@@ -12,26 +14,27 @@ import static org.springframework.http.MediaType.APPLICATION_JSON;
 import static org.springframework.web.reactive.function.server.RequestPredicates.*;
 import static org.springframework.web.reactive.function.server.RouterFunctions.route;
 
-public class WebHandler {
+@Component
+public class MyWebHandler {
 
     //Router Function 모델
 
     public Mono<ServerResponse> hello(ServerRequest request) {
-        Mono<PersonResponseDto> person = request.getQueryParam("name")
-            .flatMap(name -> new PersonResponseDto(name,name));
-        
-        //Mono<Person> person = Mono.just(new Person(name));
-        return ServerResponse.ok().body(BodyInserters.fromValue(person));
+        String name = request.queryParam("name").get();
+        PersonResponseDto p = new PersonResponseDto(name,name);
+        p.modMessage(name);
+
+        return ServerResponse.ok().contentType(MediaType.APPLICATION_JSON).bodyValue(p);
     }
 
     @Getter
+    @AllArgsConstructor
     public class PersonResponseDto{
-        private String msg;
-        private String name;
-        
-        public PersonResponseDto(String msg, String name){
-            this.msg = msg;
-            this.name = "hello " + name;
+        private String to;
+        private String message;
+
+        public void modMessage(String message){
+            this.message = "hello " +  message;
         }
     }
 }
