@@ -16,7 +16,8 @@ public class RouterConfig {
     @Bean
     public RouterFunction<ServerResponse> routerExample(InfoHandler handler) {
         return RouterFunctions.route()
-                .GET("/info_service/uri", accept(APPLICATION_JSON), handler::info_service_uri)
+                .GET("/info-service/uri", accept(APPLICATION_JSON), handler::info_service_uri)
+                .GET("/hello", handler::hello)
                 .build();
     }
 

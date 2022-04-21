@@ -16,8 +16,17 @@ public class InfoHandler {
         System.out.println(name);
         return ServerResponse.ok().contentType(MediaType.APPLICATION_JSON)
                 .body(
-                        Mono.just(new InfoServiceResponseDto(""))
+                        Mono.just(new InfoServiceResponseDto(name+"의 직업은 가수"))
                                 , InfoServiceResponseDto.class
+                );
+    }
+
+    public Mono<ServerResponse> hello(ServerRequest request) {
+        System.out.println("hellko");
+        return ServerResponse.ok().contentType(MediaType.APPLICATION_JSON)
+                .body(
+                        Mono.just(new InfoServiceResponseDto(""))
+                        , InfoServiceResponseDto.class
                 );
     }
 }
