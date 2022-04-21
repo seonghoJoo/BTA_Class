@@ -25,17 +25,17 @@ public class V2WebHandler {
 
          return ServerResponse.ok().contentType(MediaType.APPLICATION_JSON)
                 .body(
-                        webClient
-                            .get()
-                            .uri("/info-service/uri?name="+name)
-                            .accept(MediaType.APPLICATION_JSON)
-                            .retrieve()
-                            .bodyToMono(InfoResponseDto.class)
-                            .map(p -> {
-                                PersonResponseDto person = new PersonResponseDto(name,name, p.getJob());
-                                person.modMessage(name);
-                                return person;
-                            } )
-                , PersonResponseDto.class);
+                    webClient
+                        .get()
+                        .uri("/info-service/uri?name="+name)
+                        .accept(MediaType.APPLICATION_JSON)
+                        .retrieve()
+                        .bodyToMono(InfoResponseDto.class)
+                        .map(p -> {
+                            PersonResponseDto person = new PersonResponseDto(name,name, p.getJob());
+                            person.modMessage(name);
+                            return person;
+                        } )
+                    , PersonResponseDto.class);
     }
 }
