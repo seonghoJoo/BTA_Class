@@ -3,9 +3,9 @@
 
 ## 2주차 DDD 과제
 
-### [USER](https://github.com/seonghoJoo/BTA_Class/tree/master/week2_user)
-### [LECTURE](https://github.com/seonghoJoo/BTA_Class/tree/master/week2_lecture)
-### [COMMUNITY](https://github.com/seonghoJoo/BTA_Class/tree/master/week2_community)
+### [USER 소스 바로가기](https://github.com/seonghoJoo/BTA_Class/tree/master/week2_user)
+### [LECTURE 소스 바로가기](https://github.com/seonghoJoo/BTA_Class/tree/master/week2_lecture)
+### [COMMUNITY 소스 바로가기](https://github.com/seonghoJoo/BTA_Class/tree/master/week2_community)
 
 ### DDD 모델링
 ![image](https://user-images.githubusercontent.com/32606456/164576192-04968cd4-c5af-4b39-ae9f-32ade27a46ff.png)
