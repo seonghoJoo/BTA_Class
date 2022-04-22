@@ -3,6 +3,9 @@
 
 ## 2주차 DDD 과제
 
+### [USER]()
+### [LECTURE]()
+### [COMMUNITY]()
 
 ### DDD 모델링
 ![image](https://user-images.githubusercontent.com/32606456/164576192-04968cd4-c5af-4b39-ae9f-32ade27a46ff.png)
