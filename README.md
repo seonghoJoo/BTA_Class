@@ -21,3 +21,4 @@
 #### 3. COMMUNITY APP
 ![image](https://user-images.githubusercontent.com/32606456/164576623-f81f4805-9148-4b60-b1a3-6e24db0aa83a.png)
 
+### [DDD 실습 REST API 문서정리](https://www.notion.so/DDD-REST-API-e4fb34801f404bebae0ed851aefb5bba)
