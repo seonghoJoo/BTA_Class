@@ -8,7 +8,7 @@
 ### [COMMUNITY 소스 바로가기](https://github.com/seonghoJoo/BTA_Class/tree/master/week2_community)
 
 ### DDD 모델링
-![image](https://user-images.githubusercontent.com/32606456/164576192-04968cd4-c5af-4b39-ae9f-32ade27a46ff.png)
+![image](https://user-images.githubusercontent.com/32606456/164683383-6c063f4d-faf3-4e1b-acef-5837cf860394.png)
 
 ### DB 
 #### 1. USER APP
