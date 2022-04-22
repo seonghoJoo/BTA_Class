@@ -3,7 +3,7 @@
 
 ## 2주차 DDD 과제
 
-### [USER]()
+### [USER](https://github.com/seonghoJoo/BTA_Class/tree/master/week2_user)
 ### [LECTURE]()
 ### [COMMUNITY]()
 
